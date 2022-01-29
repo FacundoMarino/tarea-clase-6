@@ -13,6 +13,7 @@ document.querySelector('#calcular-grupo-familiar').onclick = function(){
     ingresarIntegrantes(grupoFamiliar)
     mostrarBotonCalcular(grupoFamiliar)
     
+    
 }
 
 document.querySelector("#calcular").onclick = function (){
@@ -24,16 +25,29 @@ document.querySelector("#calcular").onclick = function (){
 }
 
 
+document.querySelector('#reiniciar').onclick = function(){
+    borrarIntegrantes()
+    restaurar()
+}
+
 //////////////// Funciones //////////////
 
 
 function ingresarIntegrantes(grupoFamiliar){
     for(let i = 1; i <= grupoFamiliar; i++){
+
+        
    
         seleccionoDiv = document.querySelector('#integrantes-familia');
+
+        crearDiv = document.createElement('div')
+
+        crearDiv.className = 'familiares'
    
         nuevoLabel = document.createElement('label')
-   
+
+        nuevoLabel.className = 'edades-label'
+
         nuevoInput = document.createElement('input')
 
         nuevoInput.className = 'edades'
@@ -41,14 +55,18 @@ function ingresarIntegrantes(grupoFamiliar){
         nuevoInput.type = 'number'
    
         nuevoLabel.textContent = 'Edad del integrante Familiar'
+
+        seleccionoDiv.appendChild(crearDiv)
    
-        seleccionoDiv.appendChild(nuevoLabel)
+        crearDiv.appendChild(nuevoLabel)
    
-        seleccionoDiv.appendChild(nuevoInput); 
+        crearDiv.appendChild(nuevoInput); 
    
-        nueboBr = document.createElement('br')
+        nuevoBr = document.createElement('br')
+
+        nuevoBr.className = 'familiares'
    
-        seleccionoDiv.appendChild(nueboBr)
+        seleccionoDiv.appendChild(nuevoBr)
 
     }
 }
@@ -57,6 +75,9 @@ function mostrarBotonCalcular (grupoFamiliar){
     if(grupoFamiliar > 0){
         document.querySelector('.ocultar').className = '';
     }
+   else{
+       restaurar()
+   }
 } 
 
 
@@ -73,7 +94,8 @@ function recolectarEdades(){
 function mostrarEdadMayor(edadesObtenidas){
 
  edadMayorStrong = document.querySelector('#edad-mayor')
- document.querySelector('.ocultar').className = ''
+ document.querySelector('#resultados').className = ''
+ edadMayorStrong.className = ''
  edadMayorStrong.textContent = numeroMayor(edadesObtenidas)
 
 }
@@ -81,13 +103,31 @@ function mostrarEdadMayor(edadesObtenidas){
 function mostrarEdadMenor(edadesObtenidas){
 
     edadMenorStrong = document.querySelector('#edad-menor')
+    edadMenorStrong.className = ''
+
     edadMenorStrong.textContent = numeroMenor(edadesObtenidas)
 }
 
 function mostrarPromedio(edadesObtenidas){
     
     edadPromedioStrong = document.querySelector('#edad-promedio')
+    edadPromedioStrong.className = ''
     edadPromedioStrong.textContent = promedio(edadesObtenidas)
+
+}
+
+function restaurar(){
+    document.querySelector('#edad-mayor').className = 'ocultar'
+    document.querySelector('#edad-menor').className = 'ocultar'
+    document.querySelector('#edad-promedio').className = 'ocultar'
+    document.querySelector('#calcular').className = 'ocultar'
+}
+
+function borrarIntegrantes(){
+    const cantidadParaBorrar = document.querySelectorAll('.familiares')
+    for(let i = 0; i < cantidadParaBorrar.length; i++){
+        cantidadParaBorrar[i].remove()
+    }
 
 }
 
@@ -105,7 +145,7 @@ function numeroMayor(edadesObtenidas){
     
         if(edadesObtenidas[i] > numeroMasAlto){
         numeroMasAlto = edadesObtenidas[i]
-        
+
         }
     }
     return numeroMasAlto
@@ -142,10 +182,3 @@ function promedio (edadesObtenidas){
 }
 
 
-/*
-TAREA:
-Crear una interfaz que permita agregar ó quitar (botones agregar y quitar) inputs+labels para completar el salario anual de cada integrante de la familia que trabaje.
-Al hacer click en "calcular", mostrar en un elemento pre-existente el mayor salario anual, menor salario anual, salario anual promedio y salario mensual promedio.
-
-Punto bonus: si hay inputs vacíos, ignorarlos en el cálculo (no contarlos como 0).
-*/
