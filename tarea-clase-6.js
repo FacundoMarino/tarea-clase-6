@@ -1,12 +1,3 @@
-/*
-TAREA: Empezar preguntando cuánta gente hay en el grupo familiar.
-Crear tantos inputs+labels como gente haya para completar la edad de cada integrante.
-Al hacer click en "calcular", mostrar en un elemento pre-existente la mayor edad, la menor edad y el promedio del grupo familiar.
-Punto bonus: Crear un botón para "empezar de nuevo" que empiece el proceso nuevamente, borrando los inputs ya creados (investigar cómo en MDN).
-*/
-
-//////////////// Botones //////////////
-
 document.querySelector('#calcular-grupo-familiar').onclick = function(){
     
     const grupoFamiliar = document.querySelector('#grupo-familiar').value
@@ -121,7 +112,10 @@ function restaurar(){
     document.querySelector('#edad-menor').className = 'ocultar'
     document.querySelector('#edad-promedio').className = 'ocultar'
     document.querySelector('#calcular').className = 'ocultar'
+    document.querySelector('#resultados').className = 'ocultar'
+
 }
+
 
 function borrarIntegrantes(){
     const cantidadParaBorrar = document.querySelectorAll('.familiares')
@@ -180,5 +174,3 @@ function promedio (edadesObtenidas){
    return edadesObtenidas.length / promedio 
   }
 }
-
-
